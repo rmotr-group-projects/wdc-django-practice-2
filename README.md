@@ -1,6 +1,6 @@
-### Django practice nº 2
+# Django practice nº 2
 
-##### Setup Instruction
+### Setup Instruction
 
 ```bash
 $ mkvirtualenv -p $(which python3) django_practice_2
@@ -32,7 +32,7 @@ $ python load_initial_data_1.py
 
 You'll now have a superuser created with username `admin` and password `admin`, so you can access the admin site vía `http://localhost:8080/admin/`
 
-##### * Task 1:
+##### - Task 1:
 
 A Django model called `Artist` is provided to you as an example inside `artists/models.py`. For this task you'll have to implement a view inside `artists/views.py` that matches with `/artists` URL located in `django_practice_2/urls.py`.
 This view will be in charged of fetching all `Artist`'s objects stored in the database (previously loaded with the given script) and render the `artists.html` template sending all `artists` as context.
@@ -42,7 +42,7 @@ You can test the response of the view in your browser, pointing to `http://local
 <img src="https://user-images.githubusercontent.com/2788551/39497571-5071116c-4d7a-11e8-9659-3edcc9a4ee20.png" width="50%" height="50%">
 
 
-##### * Task 2:
+##### - Task 2:
 
 In this task you'll extend the previous view with some functionality. The idea is to filter the list of artists by name sending GET parameters in the URL (i.e: `/artists?first_name=stev`).
 For this, check if a `first_name` GET parameter is sent inside `request.GET` dictionary. If so, filter the previous artists queryset that had ALL artists, in order to filter only the ones that contains the given pattern in their first_name.
@@ -51,7 +51,7 @@ The context while rendering the template will be the same as before, but now the
 <img src="https://user-images.githubusercontent.com/2788551/39497588-65a6b6e0-4d7a-11e8-8f3b-4c5bbfb9cbfc.png" width="50%" height="50%">
 
 
-##### * Task 3:
+##### - Task 3:
 
 In a similar way as done before, check if a `popularity` GET parameter is given in the URL and if so, filter the artists queryset by artists that have a popularity greater or equal to the one given.
 It should work like this:
@@ -59,9 +59,37 @@ It should work like this:
 <img src="https://user-images.githubusercontent.com/2788551/39497601-7892d2b6-4d7a-11e8-8dfd-b658262a7146.png" width="50%" height="50%">
 
 
-##### * Task 4:
+##### - Task 4:
 
 For this task you'll implement a brand new view under `/artist/<artist_id>` URL. This view will take the given `artist_id`, get the proper Artist object from the database and render the `artist.html` template sending the artist object as context.
 If you want to check what id is associated with each artist, you can do it in the admin page at `/admin/` URL.
 
 <img src="https://user-images.githubusercontent.com/2788551/39497626-9f1ee55a-4d7a-11e8-94fe-b0f81c0e6c14.png" width="50%" height="50%">
+
+
+#### Part 2
+
+##### - Task 1:
+
+Add a new `genre` field to the `Artist` model inside `/artists/models.py`. The field's type has to be CharField and in this case it will have some `choices` options ([read docs here](https://docs.djangoproject.com/en/2.0/ref/models/fields/#choices)) with different music genres.
+
+After adding the new field, a migration must be created and applied so the changes are reflected in the database. Run this commands in order to do that:
+
+```bash
+$ make makemigrations
+$ make migrate
+```
+
+As some changes have been made to the `Artist` model, there's a second script that loads initial data again with the changes applied. Run then like this:
+
+```bash
+$ python load_initial_data_2.py
+```
+
+##### - Task 2:
+
+Just as done before, add a new `genre` filter to the `artists()` view when a genre is given as GET parameter. When a genre is given, filter the artists queryset by those who match with that genre and send the queryset as context in the same way as before.
+
+<img src="https://user-images.githubusercontent.com/2788551/39499701-05a50cc2-4d86-11e8-8f99-d31772856b41.png" width="50%" height="50%">
+
+NOTE: Notice that you can send multiple GET parameters like this: `/artists?genre=rock&popularity=80`
