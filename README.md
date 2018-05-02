@@ -93,3 +93,47 @@ Just as done before, add a new `genre` filter to the `artists()` view when a gen
 <img src="https://user-images.githubusercontent.com/2788551/39499701-05a50cc2-4d86-11e8-8f99-d31772856b41.png" width="50%" height="50%">
 
 NOTE: Notice that you can send multiple GET parameters like this: `/artists?genre=rock&popularity=80`
+
+
+#### Part 3
+
+##### - Task 1:
+
+In this task you will implement a brand new `Song` model with three fields:
+  - artist_id (type: integer)
+  - title (type: char)
+  - album_name (type: char)
+As every time any change is made in a model, a migration must be created. Run this commands as before:
+
+```bash
+$ make makemigrations
+$ make migrate
+```
+
+In order to have initial data for the new model, another script is provided to you. Run it like this:
+
+```bash
+$ python load_initial_data_3.py
+```
+
+##### - Task 2:
+
+Implement a view under `/songs` URL that display ALL the songs stored in the database. In order to do this, fetch all the Song objects and render the `songs.html` sending the 'songs' queryset as context.
+Before rendering the template, loop through the songs queryset and for each song, fetch the proper Artist object from the database that matches with the artist_id in the song. Once you have the song's artist object, bind it to the song object like 'song.artist = artist'.
+
+<img src="https://user-images.githubusercontent.com/2788551/39501114-572f33d4-4d8f-11e8-8c2c-e6316512e8da.png" width="50%" height="50%">
+
+##### - Task 3:
+
+Add a `title` filter to the `songs()` view that takes 'title' GET parameter (if given) and filters the 'songs' queryset for songs that contains that pattern, in a similar way that the tasks before.
+
+<img src="https://user-images.githubusercontent.com/2788551/39501513-be973218-4d91-11e8-96c9-f43836cc1b42.png" width="50%" height="50%">
+
+
+##### - Task 4:
+
+Add a new `/songs/<artist_id>` URL that points to the same `songs()` view. Filter the songs queryset for songs that match with given artist_id and render the same `songs.html` template.
+Notice that this is NOT a GET parameter, but a parameter that comes in the URL path. So now the `songs()` view takes a new artist_id parameter which by default is set to None.
+Remember that you can check which `id` is associated with each artist object in the Django admin page.
+
+<img src="https://user-images.githubusercontent.com/2788551/39501602-401e5eb0-4d92-11e8-92a8-9fd1d5e3e1cb.png" width="50%" height="50%">

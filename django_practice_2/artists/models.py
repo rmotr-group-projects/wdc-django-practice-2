@@ -7,6 +7,12 @@ GENRE_CHOICES = (
 )
 
 class Artist(models.Model):
+    """
+        PART 2:
+            - Task 1: Add a new 'genre' field to this model. The field's type
+            must be CharField and in this case it will have 'choices' option
+            with the GENRE_CHOICES given above.
+    """
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     artistic_name = models.CharField(max_length=255)
@@ -16,6 +22,13 @@ class Artist(models.Model):
 
 
 class Song(models.Model):
+    """
+        PART 3:
+            - Task 1: Implement the Song model with the following fields:
+                * artist_id (type: integer)
+                * title (type: char)
+                * album_name (type: char)
+    """
     artist_id = models.IntegerField()
     title = models.CharField(max_length=255)
     album_name = models.CharField(max_length=255)
