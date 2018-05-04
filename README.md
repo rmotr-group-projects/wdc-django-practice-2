@@ -27,7 +27,7 @@ If you run the development server with `$ make runserver`, you'll be able to tes
 Once you have your virtualenv setup with all the requirements installed and the Django migrations migrated, there is one more step that you need to do. A script called `load_initial_data_1.py` is provided to you in order to have some initial data stored in the database. You can run it by doing:
 
 ```bash
-$ python load_initial_data_1.py
+$ python django_practice_2/load_initial_data_1.py
 ```
 
 You'll now have a superuser created with username `admin` and password `admin`, so you can access the admin site vía `http://localhost:8080/admin/`
@@ -83,7 +83,7 @@ $ make migrate
 As some changes have been made to the `Artist` model, there's a second script that loads initial data again with the changes applied. Run then like this:
 
 ```bash
-$ python load_initial_data_2.py
+$ python django_practice_2/load_initial_data_2.py
 ```
 
 ##### - Task 2:
@@ -113,7 +113,7 @@ $ make migrate
 In order to have initial data for the new model, another script is provided to you. Run it like this:
 
 ```bash
-$ python load_initial_data_3.py
+$ python django_practice_2/load_initial_data_3.py
 ```
 
 ##### - Task 2:
