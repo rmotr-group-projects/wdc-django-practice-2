@@ -24,13 +24,13 @@ If you run the development server with `$ make runserver`, you'll be able to tes
 
 #### Part 1
 
-Once you have your virtualenv setup with all the requirements installed and the Django migrations migrated, there is one more step that you need to do. A script called `load_initial_data_1.py` is provided to you in order to have some initial data stored in the database. You can run it by doing:
+Once you have your virtualenv setup with all the requirements installed and the Django migrations migrated, there is one more step that you need to do. We will run a command that loads some testing data into our database. You can run it by doing:
 
 ```bash
-$ python django_practice_2/load_initial_data_1.py
+$ make load_initial_data_1
 ```
 
-You'll now have a superuser created with username `admin` and password `admin`, so you can access the admin site vía `http://localhost:8080/admin/`
+You should see an `Imported!` message when the command execution finishes. That mean all initial data was imported successfully. You'll now have a superuser created with username `admin` and password `admin`, so you can access the admin site via `http://localhost:8080/admin/`.
 
 ##### - Task 1:
 
@@ -77,13 +77,32 @@ After adding the new field, a migration must be created and applied so the chang
 
 ```bash
 $ make makemigrations
+```
+
+This will create a new Migration file, which will include the creation of the `genre` field we've just created in the `Artist` model. When you run this command, it's expected to get a message like this:
+
+```bash
+You are trying to add a non-nullable field 'genre' to artist without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option:
+```
+
+Let me explain what that means. If you remember from previous steps, we've already loaded some data into our database. That means we already have a few instances (3 to be more precise) of the `Artist` model saved in our database. All those 3 instances **don't have** a set value for the new `genre` field we've just added. What Django is asking here is: "What should I use as `genre` value for all those 3 instances that we already have in the DB?". Option 1) will set the value you specify as `genre` for all current instances in the db, and Option 2) will exit and let you do changes manually or specify a default value in the Model field. For this project, it's enough to specify a one-off value, like `"rock"` (it must be a valid values included in the choices).
+
+So, type `1` and hit `Enter` to select Option 1, then type `"rock"` and hit `Enter` again to set the default value for all db rows. That's it! Our new migration should be in place. 🎉
+
+Finally, run the new migration so all changes are applied to the database.
+
+```bash
 $ make migrate
 ```
 
 As some changes have been made to the `Artist` model, there's a second script that loads initial data again with the changes applied. Run then like this:
 
 ```bash
-$ python django_practice_2/load_initial_data_2.py
+$ make load_initial_data_2
 ```
 
 ##### - Task 2:
@@ -113,7 +132,7 @@ $ make migrate
 In order to have initial data for the new model, another script is provided to you. Run it like this:
 
 ```bash
-$ python django_practice_2/load_initial_data_3.py
+$ make load_initial_data_3
 ```
 
 ##### - Task 2:
