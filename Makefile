@@ -30,3 +30,15 @@ makemigrations:
 createsuperuser:
 	@echo $(TAG)Create Superuser$(END)
 	$(call django-command, createsuperuser)
+
+load_initial_data_1:
+	@echo $(TAG)Load initial data 1$(END)
+	$(call django-command, load_initial_data_1)
+
+load_initial_data_2:
+	@echo $(TAG)Load initial data 2$(END)
+	$(call django-command, load_initial_data_2)
+
+load_initial_data_3:
+	@echo $(TAG)Load initial data 3$(END)
+	$(call django-command, load_initial_data_3)
