@@ -77,6 +77,25 @@ After adding the new field, a migration must be created and applied so the chang
 
 ```bash
 $ make makemigrations
+```
+
+This will create a new Migration file, which will include the creation of the `genre` field we've just created in the `Artist` model. When you run this command, it's expected to get a message like this:
+
+```bash
+You are trying to add a non-nullable field 'genre' to artist without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option:
+```
+
+Let me explain what that means. If you remember from previous steps, we've already loaded some data into our database. That means we already have a few instances (3 to be more precise) of the `Artist` model saved in our database. All those 3 instances **don't have** a set value for the new `genre` field we've just added. What Django is asking here is: "What should I use as `genre` value for all those 3 instances that we already have in the DB?". Option 1) will set the value you specify as `genre` for all current instances in the db, and Option 2) will exit and let you do changes manually or specify a default value in the Model field. For this project, it's enough to specify a one-off value, like `"rock"` (it must be a valid values included in the choices).
+
+So, type `1` and hit `Enter` to select Option 1, then type `"rock"` and hit `Enter` again to set the default value for all db rows. That's it! Our new migration should be in place. 🎉
+
+Finally, run the new migration so all changes are applied to the database.
+
+```bash
 $ make migrate
 ```
 
