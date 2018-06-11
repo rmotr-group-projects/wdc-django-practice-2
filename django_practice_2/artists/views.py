@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound,HttpResponse
 
-from .models import Artist
-# from .models import Artist, Song
+
+from .models import Artist, Song
 
 
 def artists(request):
@@ -28,7 +28,17 @@ def artists(request):
             before. If genre param is given, filter the artists queryset only with
             artists from that genre.
     """
-    pass
+    name = request.GET.get('first_name')
+    popularity = request.GET.get('popularity')
+    genre = request.GET.get('genre')
+    artists = Artist.objects.all()
+    if name:
+        artists = artists.filter(first_name__icontains=name)
+    if popularity:
+        artists = artists.filter(popularity__gte=popularity)
+    if genre:
+        artists = artists.filter(genre=genre)
+    return render(request, "artists.html",{"artists":artists})
 
 
 def artist(request, artist_id):
@@ -39,7 +49,9 @@ def artist(request, artist_id):
             the DB. Then render the 'artist.html' template sending the 'artist'
             object as context
     """
-    pass
+    artist = Artist.objects.filter(id=artist_id).get()
+    print (type(artist))
+    return render(request, "artist.html",context={"artist":artist})
 
 
 def songs(request, artist_id=None):
@@ -63,4 +75,21 @@ def songs(request, artist_id=None):
             songs that match with given artist_id and render the same 'songs.html'
             template.
     """
-    pass
+    allsongs = Song.objects.all()
+    
+
+    title =  request.GET.get('title')
+    if title:
+        allsongs = allsongs.filter(title__icontains=title)
+        
+     
+    if artist_id:
+        allsongs = allsongs.filter(artist_id=artist_id)
+
+
+    for song in allsongs:
+        artist = Artist.objects.filter(id=song.artist_id).get()
+        song.artist = artist
+    return render(request, "songs.html",{"songs":allsongs})
+        
+        
