@@ -158,7 +158,7 @@ Remember that you can check which `id` is associated with each artist object in 
 <img src="https://user-images.githubusercontent.com/2788551/39501602-401e5eb0-4d92-11e8-92a8-9fd1d5e3e1cb.png" width="50%" height="50%">
 
 
-#### Part 3 - ORM exercises
+#### Part 4 - ORM exercises
 
 For this part of the practice you will work inside the `artists/orm_exercises.py` file. You'll find there a couple of functions that are the tasks you have to implement, using the different ORM methods that are provided by the Django `objects` manager.
 Each of the task has its instructions as a docstring, so use them as a guide to know what you have to do.
