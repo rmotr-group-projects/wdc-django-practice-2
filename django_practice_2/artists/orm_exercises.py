@@ -20,6 +20,7 @@ def task_4_artists_create_song():
     """Should create a new song for Ed Sheeran artist"""
     pass
 
+
 def task_5_artists_order_by_popularity():
     """Should return all artists ordered by popularity"""
     pass
