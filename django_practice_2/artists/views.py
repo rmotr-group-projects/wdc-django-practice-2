@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseNotFound
 
 from .models import Artist
-# from .models import Artist, Song
+from .models import Artist, Song
 
 
 def artists(request):
@@ -28,7 +28,22 @@ def artists(request):
             before. If genre param is given, filter the artists queryset only with
             artists from that genre.
     """
-    pass
+    
+    name = request.GET.get('first_name')
+    pop = request.GET.get('popularity')
+    genre = request.GET.get('genre')
+    artists = Artist.objects.all()
+    
+    if name:
+        artists = artists.filter(first_name__icontains=name)
+    if pop:
+        artists = artists.filter(popularity__gte=pop)
+    if genre:
+        artists = artists.filter(genre=genre)
+    
+    if not artists.exists():
+            return HttpResponseNotFound("<h1>Sorry couldn't find anything matching that search!</h1>")
+    return render(request, "artists.html", context={'artists':artists})
 
 
 def artist(request, artist_id):
@@ -39,8 +54,15 @@ def artist(request, artist_id):
             the DB. Then render the 'artist.html' template sending the 'artist'
             object as context
     """
-    pass
+    try:
+        artist = Artist.objects.get(id=artist_id)
+    except Artist.DoesNotExist:
+        return HttpResponseNotFound("Sorry couldn't find that!")
+        
+    return render(request, 'artist.html', context={'artist':artist})
 
+
+#   <li><a href="{% url 'songs' artist_id=artist.id %}">List of songs</a></li>
 
 def songs(request, artist_id=None):
     """
@@ -63,4 +85,20 @@ def songs(request, artist_id=None):
             songs that match with given artist_id and render the same 'songs.html'
             template.
     """
-    pass
+    songs = Song.objects.all()
+    title = request.GET.get('title')
+    
+    if artist_id:
+        songs = songs.filter(artist_id=artist_id)
+    
+    if title:
+        songs = songs.filter(title__icontains=title)
+    
+    for song in songs:
+        artist = Artist.objects.get(id=song.artist_id)
+        song.artist = artist
+        
+    return render(request, 'songs.html', context={'songs':songs})
+    
+
+

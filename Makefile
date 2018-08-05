@@ -45,4 +45,4 @@ load_initial_data_3:
 
 test:
 	@echo $(TAG)Testing$(END)
-	$(call django-command, test artists)
+	$(call django-command, test artists --no-migrations)
