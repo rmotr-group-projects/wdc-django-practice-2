@@ -30,6 +30,8 @@ def artists(request):
     """
     if 'first_name' in request.GET:
         artists = Artist.objects.filter(first_name__icontains=request.GET['first_name'])
+    elif 'popularity' in request.GET:
+        artists = Artist.objects.filter(popularity__gte=request.GET['popularity'])
     else:
         artists = Artist.objects.all()
     return render(request, 'artists.html', context={'artists': artists})
