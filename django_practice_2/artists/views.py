@@ -40,12 +40,13 @@ def artists(request):
 def artist(request, artist_id):
     """
         PART 1:
-            - Task 4: Implement a view under /artists/<artist_id> that takes the
+            - Task 4: Implement a view under /artist/<artist_id> that takes the
             given artist_id in the URL and gets the proper Artist object from
             the DB. Then render the 'artist.html' template sending the 'artist'
             object as context
     """
-    pass
+    artist = Artist.objects.get(id=artist_id)
+    return render(request, 'artist.html', context={'artist': artist})
 
 
 def songs(request, artist_id=None):
