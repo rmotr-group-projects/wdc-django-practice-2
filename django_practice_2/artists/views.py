@@ -28,12 +28,13 @@ def artists(request):
             before. If genre param is given, filter the artists queryset only with
             artists from that genre.
     """
+    artists = Artist.objects.all()
     if 'first_name' in request.GET:
-        artists = Artist.objects.filter(first_name__icontains=request.GET['first_name'])
-    elif 'popularity' in request.GET:
-        artists = Artist.objects.filter(popularity__gte=request.GET['popularity'])
-    else:
-        artists = Artist.objects.all()
+        artists = artists.filter(first_name__icontains=request.GET['first_name'])
+    if 'popularity' in request.GET:
+        artists = artists.filter(popularity__gte=request.GET['popularity'])
+    if 'genre' in request.GET:
+        artists = artists.filter(genre=request.GET['genre'])
     return render(request, 'artists.html', context={'artists': artists})
 
 
