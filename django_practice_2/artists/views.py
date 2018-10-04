@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseNotFound
-
-from .models import Artist
-# from .models import Artist, Song
+from .models import Artist, Song
 
 
 def artists(request):
@@ -71,4 +69,8 @@ def songs(request, artist_id=None):
             songs that match with given artist_id and render the same 'songs.html'
             template.
     """
-    pass
+    songs = Song.objects.all()
+    for song in songs:
+        song.artist = Artist.objects.get(id=song.artist_id)
+
+    return render(request, 'songs.html', context={'songs': songs})
