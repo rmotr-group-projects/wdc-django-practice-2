@@ -70,6 +70,8 @@ def songs(request, artist_id=None):
             template.
     """
     songs = Song.objects.all()
+    if artist_id:
+        songs = songs.filter(artist_id=artist_id)
     if 'title' in request.GET:
         songs = songs.filter(title__icontains=request.GET['title'])
 
