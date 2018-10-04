@@ -70,7 +70,10 @@ def songs(request, artist_id=None):
             template.
     """
     songs = Song.objects.all()
+    if 'title' in request.GET:
+        songs = songs.filter(title__icontains=request.GET['title'])
+
     for song in songs:
         song.artist = Artist.objects.get(id=song.artist_id)
-
+        
     return render(request, 'songs.html', context={'songs': songs})
