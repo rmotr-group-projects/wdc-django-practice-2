@@ -18,7 +18,7 @@ class Artist(models.Model):
     artistic_name = models.CharField(max_length=255)
     picture_url = models.URLField()
     popularity = models.IntegerField()
-    genre = models.CharField(choices=GENRE_CHOICES, max_length=255)
+    genre = models.CharField(max_length=255, choices=GENRE_CHOICES, default='rock')
 
 
 class Song(models.Model):

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseNotFound
 
-from artists.models import Artist, Song
+from .models import Artist, Song
 
 
 def artists(request):
