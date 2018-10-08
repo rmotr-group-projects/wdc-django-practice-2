@@ -2,9 +2,9 @@ from django.db import models
 
 
 GENRE_CHOICES = (
-    ("soul", "soul"),
-    ("rock", "rock"),
-    ("pop", "pop"),
+    ("soul", "Soul"),
+    ("rock", "Rock"),
+    ("pop", "Pop"),
 )
 
 class Artist(models.Model):
