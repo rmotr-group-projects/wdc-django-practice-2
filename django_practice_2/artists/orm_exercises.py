@@ -18,7 +18,8 @@ def task_3_songs_delete():
 
 def task_4_artists_create_song():
     """Should create a new song for Ed Sheeran artist"""
-    Song.objects.create(artist_id="9", title="Hokey Song", album_name="Lame-oh Ed")
+    artist = Artist.objects.get(artistic_name='Ed Sheeran')
+    Song.objects.create(artist_id=artist.id, title="Whatever", album_name="rEdhEd")
 
 
 def task_5_artists_order_by_popularity():
@@ -33,4 +34,4 @@ def task_6_song_edit_album():
 
 def task_7_song_counter():
     """Should return the amount of songs stored in the database"""
-    return len(Artist.objects.all())
+    return Song.objects.count()
