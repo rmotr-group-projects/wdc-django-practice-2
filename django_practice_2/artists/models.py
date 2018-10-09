@@ -2,7 +2,6 @@ from django.db import models
 
 
 GENRE_CHOICES = (
-    ("soul", "Soul"),
     ("rock", "Rock"),
     ("pop", "Pop"),
 )
