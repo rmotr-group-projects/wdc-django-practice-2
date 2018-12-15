@@ -18,15 +18,17 @@ class Artist(models.Model):
     artistic_name = models.CharField(max_length=255)
     picture_url = models.URLField()
     popularity = models.IntegerField()
-    # genre = ...
+    genre = models.CharField(max_length=255,choices=GENRE_CHOICES)
 
 
-# class Song(models.Model):
-#     """
-#         PART 3:
-#             - Task 1: Implement the Song model with the following fields:
-#                 * artist_id (type: integer)
-#                 * title (type: char)
-#                 * album_name (type: char)
-#     """
-#     pass
+class Song(models.Model):
+    """
+        PART 3:
+            - Task 1: Implement the Song model with the following fields:
+                * artist_id (type: integer)
+                * title (type: char)
+                * album_name (type: char)
+    """
+    artist_id = models.IntegerField()
+    title = models.CharField(max_length=255)
+    album_name = models.CharField(max_length=255)
