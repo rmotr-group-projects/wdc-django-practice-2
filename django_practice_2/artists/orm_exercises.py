@@ -30,9 +30,10 @@ def task_5_artists_order_by_popularity():
 
 
 def task_6_song_edit_album():
-    song = Song.objects.get(title='Superstition')
-    song.album_name = 'new song'
-    song.save()
+    # song = Song.objects.get(title='Superstition')
+    # song.album_name = 'new album_name'
+    # song.save()
+    Song.objects.filter(title='Superstition').update(album_name='new album_name')
 
 
 def task_7_song_counter():
